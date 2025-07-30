@@ -175,9 +175,22 @@ const Cart: React.FC = () => {
             ${getTotalPrice().toFixed(2)}
           </span>
         </div>
-        <Button className="w-full" size="lg">
-          Proceed to Checkout
-        </Button>
+        <div className="space-y-2">
+          <Button 
+            className="w-full" 
+            size="lg"
+            onClick={() => window.location.href = '/checkout'}
+          >
+            Proceed to Checkout
+          </Button>
+          <Button 
+            variant="outline" 
+            className="w-full" 
+            onClick={() => window.location.href = '/products'}
+          >
+            Continue Shopping
+          </Button>
+        </div>
       </Card>
     </div>
   );

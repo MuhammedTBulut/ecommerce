@@ -32,11 +32,19 @@ const Header: React.FC = () => {
               Products
             </Link>
             <Link
-              to="/categories"
+              to="/support"
               className="text-gray-900 hover:text-primary-600 px-3 py-2 text-sm font-medium transition-colors"
             >
-              Categories
+              Support
             </Link>
+            {isAuthenticated && (
+              <Link
+                to="/orders"
+                className="text-gray-900 hover:text-primary-600 px-3 py-2 text-sm font-medium transition-colors"
+              >
+                My Orders
+              </Link>
+            )}
             {isAuthenticated && user?.role === 'Admin' && (
               <Link
                 to="/admin"
