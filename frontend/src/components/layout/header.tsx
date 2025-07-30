@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Search, ShoppingCart, User, Menu, X, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { CartDrawer } from '@/components/cart/cart-drawer';
 import { useCartStore } from '@/stores/cart';
 import { useUIStore } from '@/stores/ui';
 import { useAuthStore } from '@/stores/auth';
@@ -26,7 +27,8 @@ export function Header() {
   ];
 
   return (
-    <header className="bg-white shadow-sm border-b sticky top-0 z-50">
+    <>
+      <header className="bg-white shadow-sm border-b sticky top-0 z-50">
       {/* Top bar */}
       <div className="bg-gray-900 text-white text-sm">
         <div className="container mx-auto px-4 py-2 flex justify-between items-center">
@@ -207,5 +209,7 @@ export function Header() {
         </div>
       )}
     </header>
+    <CartDrawer />
+    </>
   );
 }
