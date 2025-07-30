@@ -1,0 +1,11 @@
+/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Domain/bin/Debug/net8.0/ECommerce.Domain.deps.json
+/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Domain/bin/Debug/net8.0/ECommerce.Domain.dll
+/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Domain/bin/Debug/net8.0/ECommerce.Domain.pdb
+/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Domain/obj/Debug/net8.0/ECommerce.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Domain/obj/Debug/net8.0/ECommerce.Domain.AssemblyInfoInputs.cache
+/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Domain/obj/Debug/net8.0/ECommerce.Domain.AssemblyInfo.cs
+/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Domain/obj/Debug/net8.0/ECommerce.Domain.csproj.CoreCompileInputs.cache
+/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Domain/obj/Debug/net8.0/ECommerce.Domain.dll
+/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Domain/obj/Debug/net8.0/refint/ECommerce.Domain.dll
+/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Domain/obj/Debug/net8.0/ECommerce.Domain.pdb
+/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Domain/obj/Debug/net8.0/ref/ECommerce.Domain.dll

@@ -1,0 +1,17 @@
+/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Infrastructure/bin/Debug/net8.0/ECommerce.Infrastructure.deps.json
+/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Infrastructure/bin/Debug/net8.0/ECommerce.Infrastructure.runtimeconfig.json
+/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Infrastructure/bin/Debug/net8.0/ECommerce.Infrastructure.dll
+/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Infrastructure/bin/Debug/net8.0/ECommerce.Infrastructure.pdb
+/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Infrastructure/bin/Debug/net8.0/ECommerce.Domain.dll
+/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Infrastructure/bin/Debug/net8.0/ECommerce.Domain.pdb
+/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Infrastructure/obj/Debug/net8.0/ECommerce.Infrastructure.csproj.AssemblyReference.cache
+/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Infrastructure/obj/Debug/net8.0/ECommerce.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Infrastructure/obj/Debug/net8.0/ECommerce.Infrastructure.AssemblyInfoInputs.cache
+/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Infrastructure/obj/Debug/net8.0/ECommerce.Infrastructure.AssemblyInfo.cs
+/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Infrastructure/obj/Debug/net8.0/ECommerce.Infrastructure.csproj.CoreCompileInputs.cache
+/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Infrastructure/obj/Debug/net8.0/ECommerce.Infrastructure.csproj.CopyComplete
+/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Infrastructure/obj/Debug/net8.0/ECommerce.Infrastructure.dll
+/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Infrastructure/obj/Debug/net8.0/refint/ECommerce.Infrastructure.dll
+/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Infrastructure/obj/Debug/net8.0/ECommerce.Infrastructure.pdb
+/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Infrastructure/obj/Debug/net8.0/ECommerce.Infrastructure.genruntimeconfig.cache
+/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Infrastructure/obj/Debug/net8.0/ref/ECommerce.Infrastructure.dll
