@@ -1,36 +1,139 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# E-Commerce Frontend
 
-## Getting Started
+Modern ve responsive e-ticaret frontend uygulaması. Next.js 14+, TypeScript, Tailwind CSS ve Zustand ile geliştirilmiştir.
 
-First, run the development server:
+## Özellikler
 
+- ✨ Modern ve responsive tasarım
+- 🚀 Next.js 14+ App Router
+- 💎 TypeScript desteği
+- 🎨 Tailwind CSS styling
+- 🔄 Zustand state management
+- 📱 Mobile-first yaklaşım
+- 🔐 Güvenli authentication
+- 🛒 Tam özellikli alışveriş sepeti
+- 👤 Kullanıcı profil yönetimi
+- 🔧 Admin paneli
+
+## Kurulum
+
+1. Dependencies'leri yükleyin:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Environment variables'ları ayarlayın:
+```bash
+cp .env.example .env.local
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Geliştirme sunucusunu başlatın:
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Proje Yapısı
 
-## Learn More
+```
+src/
+├── app/                 # Next.js App Router
+│   ├── (auth)/         # Auth route group
+│   ├── (shop)/         # Shop route group
+│   ├── (user)/         # User route group
+│   ├── (admin)/        # Admin route group
+│   └── api/            # API routes
+├── components/         # React components
+│   ├── ui/            # Base UI components
+│   ├── layout/        # Layout components
+│   ├── product/       # Product components
+│   ├── cart/          # Cart components
+│   └── auth/          # Auth components
+├── lib/               # Utilities
+├── stores/            # Zustand stores
+├── types/             # TypeScript types
+└── utils/             # Helper functions
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Sayfalar
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Ana Sayfa
+- Hero section
+- Öne çıkan ürünler
+- Kategori grid
+- Newsletter signup
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Ürün Sayfaları
+- Ürün listeleme (filtreleme ve arama)
+- Ürün detay sayfası
+- Kategori sayfaları
 
-## Deploy on Vercel
+### Kullanıcı
+- Giriş/Kayıt
+- Profil yönetimi
+- Sipariş geçmişi
+- Favoriler
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Alışveriş
+- Sepet yönetimi
+- Checkout süreci
+- Sipariş onayı
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Admin Paneli
+- Dashboard
+- Ürün yönetimi
+- Sipariş yönetimi
+- Kullanıcı yönetimi
+
+## Teknolojiler
+
+- **Framework:** Next.js 15.4.5
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **State Management:** Zustand
+- **Icons:** Lucide React
+- **HTTP Client:** Axios
+- **Validation:** Zod
+- **Components:** Custom UI components
+
+## Scripts
+
+```bash
+npm run dev      # Development server
+npm run build    # Production build
+npm run start    # Production server
+npm run lint     # ESLint
+```
+
+## Backend Integration
+
+Backend API endpoints:
+- `GET /api/products` - Ürün listesi
+- `GET /api/products/{id}` - Ürün detayı
+- `GET /api/categories` - Kategori listesi
+- `POST /api/auth/login` - Kullanıcı girişi
+- `POST /api/auth/register` - Kullanıcı kaydı
+- `GET /api/cart` - Sepet içeriği
+- `POST /api/cart` - Sepete ürün ekleme
+
+## Güvenlik
+
+- JWT token authentication
+- XSS koruması
+- Input validation
+- Secure API calls
+- Error handling
+
+## Responsive Tasarım
+
+- Mobile-first approach
+- Tablet ve desktop optimizasyonu
+- Touch-friendly interface
+- Adaptive navigation
+
+## SEO & Performance
+
+- Meta tags optimization
+- Image optimization
+- Code splitting
+- Lazy loading
+- Sitemap generation

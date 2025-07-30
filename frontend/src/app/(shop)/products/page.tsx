@@ -2,17 +2,17 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import { Star, Filter, Grid, List, ChevronDown } from 'lucide-react'
+import { Star, Grid, List } from 'lucide-react'
 import { api } from '@/lib/api'
 import { ProductListItem, Category } from '@/types'
 import { formatPrice } from '@/lib/utils'
 
-export default function ProductsPage() {
+function ProductsContent() {
   const searchParams = useSearchParams()
   const [products, setProducts] = useState<ProductListItem[]>([])
   const [categories, setCategories] = useState<Category[]>([])
@@ -24,11 +24,6 @@ export default function ProductsPage() {
     minPrice: searchParams.get('minPrice') || '',
     maxPrice: searchParams.get('maxPrice') || '',
   })
-
-  useEffect(() => {
-    fetchProducts()
-    fetchCategories()
-  }, [filters])
 
   const fetchProducts = async () => {
     setIsLoading(true)
@@ -56,6 +51,15 @@ export default function ProductsPage() {
       console.error('Failed to fetch categories:', error)
     }
   }
+
+  useEffect(() => {
+    fetchProducts()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters])
+
+  useEffect(() => {
+    fetchCategories()
+  }, [])
 
   const handleFilterChange = (key: string, value: string) => {
     setFilters(prev => ({ ...prev, [key]: value }))
@@ -258,5 +262,13 @@ export default function ProductsPage() {
         </main>
       </div>
     </div>
+  )
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ProductsContent />
+    </Suspense>
   )
 }

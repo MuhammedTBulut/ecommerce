@@ -30,8 +30,8 @@ export default function LoginPage() {
     try {
       await login(formData)
       router.push('/')
-    } catch (error: any) {
-      setError(error.response?.data?.message || 'Giriş başarısız')
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : 'Giriş başarısız')
     }
   }
 

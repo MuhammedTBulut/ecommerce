@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { ArrowRight, Star, Truck, Shield, Headphones } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { api } from '@/lib/api'
@@ -12,7 +12,6 @@ import { formatPrice } from '@/lib/utils'
 
 export default function HomePage() {
   const [featuredProducts, setFeaturedProducts] = useState<ProductListItem[]>([])
-  const [newProducts, setNewProducts] = useState<ProductListItem[]>([])
   const [categories, setCategories] = useState<Category[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
@@ -25,7 +24,6 @@ export default function HomePage() {
         ])
         
         setFeaturedProducts(productsRes.data.slice(0, 8))
-        setNewProducts(productsRes.data.slice(-6))
         setCategories(categoriesRes.data.slice(0, 6))
       } catch (error) {
         console.error('Failed to fetch data:', error)
