@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,7 +9,7 @@ import { productService } from '@/lib/products';
 import { useCart } from '@/contexts/CartContext';
 import { ShoppingCartIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
-export default function ProductsPage() {
+function ProductsContent() {
   const [products, setProducts] = useState<ProductListItem[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
@@ -19,24 +19,28 @@ export default function ProductsPage() {
   const { addToCart } = useCart();
   const searchParams = useSearchParams();
 
-  const fetchProducts = async () => {
-    try {
-      setLoading(true);
-      const params: any = {};
-      
-      if (selectedCategory) params.categoryId = selectedCategory;
-      if (searchTerm) params.search = searchTerm;
-      if (priceRange.min) params.minPrice = parseFloat(priceRange.min);
-      if (priceRange.max) params.maxPrice = parseFloat(priceRange.max);
+  useEffect(() => {
+    const loadProducts = async () => {
+      try {
+        setLoading(true);
+        const params: Record<string, unknown> = {};
+        
+        if (selectedCategory) params.categoryId = selectedCategory;
+        if (searchTerm) params.search = searchTerm;
+        if (priceRange.min) params.minPrice = parseFloat(priceRange.min);
+        if (priceRange.max) params.maxPrice = parseFloat(priceRange.max);
 
-      const data = await productService.getProducts(params);
-      setProducts(data);
-    } catch (error) {
-      console.error('Failed to fetch products:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+        const data = await productService.getProducts(params);
+        setProducts(data);
+      } catch (error) {
+        console.error('Failed to fetch products:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProducts();
+  }, [selectedCategory, searchTerm, priceRange]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,13 +61,10 @@ export default function ProductsPage() {
     fetchData();
   }, [searchParams]);
 
-  useEffect(() => {
-    fetchProducts();
-  }, [selectedCategory, searchTerm, priceRange]);
-
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    fetchProducts();
+    // Trigger refetch by updating state
+    setSearchTerm(searchTerm);
   };
 
   return (
@@ -212,5 +213,17 @@ export default function ProductsPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+      </div>
+    }>
+      <ProductsContent />
+    </Suspense>
   );
 }
