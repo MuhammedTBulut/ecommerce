@@ -1213,6 +1213,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "BCrypt.Net-Next": "4.0.3",
           "ECommerce.Domain": "1.0.0",
           "Microsoft.EntityFrameworkCore": "9.0.7"
         },

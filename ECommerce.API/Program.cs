@@ -5,6 +5,11 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
 using ECommerce.Infrastructure.Data;
+using ECommerce.Application.Interfaces.Repositories;
+using ECommerce.Infrastructure.Repositories;
+using ECommerce.Application.Interfaces.Services;
+using ECommerce.Application.Services;
+using ECommerce.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +17,22 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// 2. JWT Authentication (Token Doğrulama)
+// 2. Repository Pattern - Register repositories
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
+
+// 3. Service Layer - Register services
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<ECommerce.Application.Services.Interfaces.IActionLogger, ActionLoggerService>();
+
+// 4. JWT Authentication (Token Doğrulama)
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -32,10 +52,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-// 3. Yetkilendirme
+// 5. Yetkilendirme
 builder.Services.AddAuthorization();
 
-// 4. CORS Ayarı (Next.js'den erişim için)
+// 6. CORS Ayarı (Next.js'den erişim için)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -46,7 +66,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-// 5. Swagger (API Dokümantasyonu + JWT desteği)
+// 7. Swagger (API Dokümantasyonu + JWT desteği)
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(config =>
 {
@@ -77,7 +97,7 @@ builder.Services.AddSwaggerGen(config =>
     });
 });
 
-// 6. MVC Controller desteği
+// 8. MVC Controller desteği
 builder.Services.AddControllers();
 
 

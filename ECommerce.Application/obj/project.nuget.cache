@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "U7Vp9Aeo8DYokvfse8jSYXTClhrBHbjiBRS4AU7PtMEzKdp/0sa5m2t55+pokPGhwpMZz34fumjw2oZvjPmRMQ==",
+  "dgSpecHash": "pFN74c5lduhf/TXVvmjAUDWtPyFDPeNjtLHdVHQDaQCjBKRwtLRFxWn3h251tAKqM1kTAEAhAGkTTQadCIXqNQ==",
   "success": true,
   "projectFilePath": "/home/runner/work/ecommerce/ecommerce/ECommerce.Application/ECommerce.Application.csproj",
   "expectedPackageFiles": [
+    "/home/runner/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.entityframeworkcore/9.0.7/microsoft.entityframeworkcore.9.0.7.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.entityframeworkcore.abstractions/9.0.7/microsoft.entityframeworkcore.abstractions.9.0.7.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.entityframeworkcore.analyzers/9.0.7/microsoft.entityframeworkcore.analyzers.9.0.7.nupkg.sha512",

@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "c6Q28p02B3SaU0diLTeWSyXN+YvHWaSw1psYQioSk/06B3yQJQQ20Ob/KYeszp0NVQ5m3k/wXDobQTKNE0eoIw==",
+  "dgSpecHash": "zrxoSA9SdOpBZupmGakFWSNb0lt83+vZbwxVo5SSgpg90V7InMbiSPvn+4vjWetTu4EtLn+8TPmECg/QGvZPBw==",
   "success": true,
   "projectFilePath": "/home/runner/work/ecommerce/ecommerce/ECommerce.Infrastructure/ECommerce.Infrastructure.csproj",
   "expectedPackageFiles": [
+    "/home/runner/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
     "/home/runner/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.bcl.asyncinterfaces/7.0.0/microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.build.framework/17.8.3/microsoft.build.framework.17.8.3.nupkg.sha512",
