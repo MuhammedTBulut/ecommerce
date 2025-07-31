@@ -34,12 +34,6 @@ const Register = () => {
     },
     confirmPassword: {
       required: true,
-      custom: (value) => {
-        if (value !== values.password) {
-          return 'Passwords do not match';
-        }
-        return '';
-      },
     },
     birthDate: {
       required: true,
@@ -61,9 +55,53 @@ const Register = () => {
     validationRules
   );
 
+  // Custom validation for confirmPassword to check against password
+  const validateConfirmPassword = (confirmPassword, password) => {
+    if (!confirmPassword) {
+      return 'Please confirm your password';
+    }
+    if (confirmPassword !== password) {
+      return 'Passwords do not match';
+    }
+    return '';
+  };
+
+  const handleConfirmPasswordChange = (value) => {
+    handleChange('confirmPassword', value);
+    // Immediately validate confirmPassword against current password
+    if (touched.confirmPassword || value) {
+      const error = validateConfirmPassword(value, values.password);
+      // Manually set the error for confirmPassword
+      setTimeout(() => {
+        if (touched.confirmPassword) {
+          handleBlur('confirmPassword');
+        }
+      }, 0);
+    }
+  };
+
+  const handlePasswordChange = (value) => {
+    handleChange('password', value);
+    // If confirmPassword is already touched, revalidate it when password changes
+    if (touched.confirmPassword && values.confirmPassword) {
+      setTimeout(() => {
+        const error = validateConfirmPassword(values.confirmPassword, value);
+        // Force revalidation of confirmPassword
+        handleBlur('confirmPassword');
+      }, 0);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+
+    // Custom validation for confirmPassword
+    const confirmPasswordError = validateConfirmPassword(values.confirmPassword, values.password);
+    if (confirmPasswordError) {
+      setError(confirmPasswordError);
+      return;
+    }
 
     if (!validateAll()) {
       return;
@@ -152,7 +190,7 @@ const Register = () => {
               type="password"
               id="password"
               value={values.password}
-              onChange={(e) => handleChange('password', e.target.value)}
+              onChange={(e) => handlePasswordChange(e.target.value)}
               onBlur={() => handleBlur('password')}
               className={errors.password && touched.password ? 'input-error' : ''}
               placeholder="Create a password"
@@ -169,13 +207,21 @@ const Register = () => {
               type="password"
               id="confirmPassword"
               value={values.confirmPassword}
-              onChange={(e) => handleChange('confirmPassword', e.target.value)}
+              onChange={(e) => handleConfirmPasswordChange(e.target.value)}
               onBlur={() => handleBlur('confirmPassword')}
-              className={errors.confirmPassword && touched.confirmPassword ? 'input-error' : ''}
+              className={
+                (errors.confirmPassword && touched.confirmPassword) || 
+                (touched.confirmPassword && validateConfirmPassword(values.confirmPassword, values.password))
+                  ? 'input-error' 
+                  : ''
+              }
               placeholder="Confirm your password"
               required
             />
-            {errors.confirmPassword && touched.confirmPassword && (
+            {touched.confirmPassword && validateConfirmPassword(values.confirmPassword, values.password) && (
+              <span className="field-error">{validateConfirmPassword(values.confirmPassword, values.password)}</span>
+            )}
+            {errors.confirmPassword && touched.confirmPassword && !validateConfirmPassword(values.confirmPassword, values.password) && (
               <span className="field-error">{errors.confirmPassword}</span>
             )}
           </div>
