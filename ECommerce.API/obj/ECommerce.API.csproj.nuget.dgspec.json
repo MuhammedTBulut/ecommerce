@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.API/ECommerce.API.csproj": {}
+    "/home/runner/work/ecommerce/ecommerce/ECommerce.API/ECommerce.API.csproj": {}
   },
   "projects": {
-    "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.API/ECommerce.API.csproj": {
+    "/home/runner/work/ecommerce/ecommerce/ECommerce.API/ECommerce.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.API/ECommerce.API.csproj",
+        "projectUniqueName": "/home/runner/work/ecommerce/ecommerce/ECommerce.API/ECommerce.API.csproj",
         "projectName": "ECommerce.API",
-        "projectPath": "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.API/ECommerce.API.csproj",
-        "packagesPath": "/Users/muhammedbulut/.nuget/packages/",
-        "outputPath": "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.API/obj/",
+        "projectPath": "/home/runner/work/ecommerce/ecommerce/ECommerce.API/ECommerce.API.csproj",
+        "packagesPath": "/home/runner/.nuget/packages/",
+        "outputPath": "/home/runner/work/ecommerce/ecommerce/ECommerce.API/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/muhammedbulut/.nuget/NuGet/NuGet.Config"
+          "/home/runner/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -26,11 +26,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Application/ECommerce.Application.csproj": {
-                "projectPath": "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Application/ECommerce.Application.csproj"
+              "/home/runner/work/ecommerce/ecommerce/ECommerce.Application/ECommerce.Application.csproj": {
+                "projectPath": "/home/runner/work/ecommerce/ecommerce/ECommerce.Application/ECommerce.Application.csproj"
               },
-              "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Infrastructure/ECommerce.Infrastructure.csproj": {
-                "projectPath": "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Infrastructure/ECommerce.Infrastructure.csproj"
+              "/home/runner/work/ecommerce/ecommerce/ECommerce.Infrastructure/ECommerce.Infrastructure.csproj": {
+                "projectPath": "/home/runner/work/ecommerce/ecommerce/ECommerce.Infrastructure/ECommerce.Infrastructure.csproj"
               }
             }
           }
@@ -99,21 +99,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.118/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Application/ECommerce.Application.csproj": {
+    "/home/runner/work/ecommerce/ecommerce/ECommerce.Application/ECommerce.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Application/ECommerce.Application.csproj",
+        "projectUniqueName": "/home/runner/work/ecommerce/ecommerce/ECommerce.Application/ECommerce.Application.csproj",
         "projectName": "ECommerce.Application",
-        "projectPath": "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Application/ECommerce.Application.csproj",
-        "packagesPath": "/Users/muhammedbulut/.nuget/packages/",
-        "outputPath": "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Application/obj/",
+        "projectPath": "/home/runner/work/ecommerce/ecommerce/ECommerce.Application/ECommerce.Application.csproj",
+        "packagesPath": "/home/runner/.nuget/packages/",
+        "outputPath": "/home/runner/work/ecommerce/ecommerce/ECommerce.Application/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/muhammedbulut/.nuget/NuGet/NuGet.Config"
+          "/home/runner/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -125,11 +125,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Domain/ECommerce.Domain.csproj": {
-                "projectPath": "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Domain/ECommerce.Domain.csproj"
-              },
-              "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Infrastructure/ECommerce.Infrastructure.csproj": {
-                "projectPath": "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Infrastructure/ECommerce.Infrastructure.csproj"
+              "/home/runner/work/ecommerce/ecommerce/ECommerce.Domain/ECommerce.Domain.csproj": {
+                "projectPath": "/home/runner/work/ecommerce/ecommerce/ECommerce.Domain/ECommerce.Domain.csproj"
               }
             }
           }
@@ -144,6 +141,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[9.0.7, )"
@@ -165,21 +166,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.118/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Domain/ECommerce.Domain.csproj": {
+    "/home/runner/work/ecommerce/ecommerce/ECommerce.Domain/ECommerce.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Domain/ECommerce.Domain.csproj",
+        "projectUniqueName": "/home/runner/work/ecommerce/ecommerce/ECommerce.Domain/ECommerce.Domain.csproj",
         "projectName": "ECommerce.Domain",
-        "projectPath": "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Domain/ECommerce.Domain.csproj",
-        "packagesPath": "/Users/muhammedbulut/.nuget/packages/",
-        "outputPath": "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Domain/obj/",
+        "projectPath": "/home/runner/work/ecommerce/ecommerce/ECommerce.Domain/ECommerce.Domain.csproj",
+        "packagesPath": "/home/runner/.nuget/packages/",
+        "outputPath": "/home/runner/work/ecommerce/ecommerce/ECommerce.Domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/muhammedbulut/.nuget/NuGet/NuGet.Config"
+          "/home/runner/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -218,21 +219,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.118/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Infrastructure/ECommerce.Infrastructure.csproj": {
+    "/home/runner/work/ecommerce/ecommerce/ECommerce.Infrastructure/ECommerce.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Infrastructure/ECommerce.Infrastructure.csproj",
+        "projectUniqueName": "/home/runner/work/ecommerce/ecommerce/ECommerce.Infrastructure/ECommerce.Infrastructure.csproj",
         "projectName": "ECommerce.Infrastructure",
-        "projectPath": "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Infrastructure/ECommerce.Infrastructure.csproj",
-        "packagesPath": "/Users/muhammedbulut/.nuget/packages/",
-        "outputPath": "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Infrastructure/obj/",
+        "projectPath": "/home/runner/work/ecommerce/ecommerce/ECommerce.Infrastructure/ECommerce.Infrastructure.csproj",
+        "packagesPath": "/home/runner/.nuget/packages/",
+        "outputPath": "/home/runner/work/ecommerce/ecommerce/ECommerce.Infrastructure/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/muhammedbulut/.nuget/NuGet/NuGet.Config"
+          "/home/runner/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -244,8 +245,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Domain/ECommerce.Domain.csproj": {
-                "projectPath": "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Domain/ECommerce.Domain.csproj"
+              "/home/runner/work/ecommerce/ecommerce/ECommerce.Application/ECommerce.Application.csproj": {
+                "projectPath": "/home/runner/work/ecommerce/ecommerce/ECommerce.Application/ECommerce.Application.csproj"
+              },
+              "/home/runner/work/ecommerce/ecommerce/ECommerce.Domain/ECommerce.Domain.csproj": {
+                "projectPath": "/home/runner/work/ecommerce/ecommerce/ECommerce.Domain/ECommerce.Domain.csproj"
               }
             }
           }
@@ -287,7 +291,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.118/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

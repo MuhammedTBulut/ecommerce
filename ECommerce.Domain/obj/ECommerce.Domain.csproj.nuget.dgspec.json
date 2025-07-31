@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Domain/ECommerce.Domain.csproj": {}
+    "/home/runner/work/ecommerce/ecommerce/ECommerce.Domain/ECommerce.Domain.csproj": {}
   },
   "projects": {
-    "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Domain/ECommerce.Domain.csproj": {
+    "/home/runner/work/ecommerce/ecommerce/ECommerce.Domain/ECommerce.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Domain/ECommerce.Domain.csproj",
+        "projectUniqueName": "/home/runner/work/ecommerce/ecommerce/ECommerce.Domain/ECommerce.Domain.csproj",
         "projectName": "ECommerce.Domain",
-        "projectPath": "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Domain/ECommerce.Domain.csproj",
-        "packagesPath": "/Users/muhammedbulut/.nuget/packages/",
-        "outputPath": "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Domain/obj/",
+        "projectPath": "/home/runner/work/ecommerce/ecommerce/ECommerce.Domain/ECommerce.Domain.csproj",
+        "packagesPath": "/home/runner/.nuget/packages/",
+        "outputPath": "/home/runner/work/ecommerce/ecommerce/ECommerce.Domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/muhammedbulut/.nuget/NuGet/NuGet.Config"
+          "/home/runner/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -53,7 +53,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.118/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

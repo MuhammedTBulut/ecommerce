@@ -5,6 +5,14 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
 using ECommerce.Infrastructure.Data;
+using ECommerce.Application.Interfaces.Repositories;
+using ECommerce.Application.Interfaces.Services;
+using ECommerce.Application.Interfaces.Factories;
+using ECommerce.Application.Services.Interfaces;
+using ECommerce.Infrastructure.Repositories;
+using ECommerce.Application.Services;
+using ECommerce.Infrastructure.Services;
+using ECommerce.Infrastructure.Factories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -79,6 +87,21 @@ builder.Services.AddSwaggerGen(config =>
 
 // 6. MVC Controller desteği
 builder.Services.AddControllers();
+
+// 7. Register Repositories
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+
+// 8. Register Services
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IActionLogger, ActionLoggerService>();
+
+// 9. Register Factories
+builder.Services.AddScoped<IPaymentStrategyFactory, PaymentStrategyFactory>();
+builder.Services.AddScoped<IShippingStrategyFactory, ShippingStrategyFactory>();
 
 
 var app = builder.Build();
