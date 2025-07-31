@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useCart } from '../../contexts/CartContext';
+import ThemeToggle from '../common/ThemeToggle';
 
 const Header = () => {
   const { user, logout, isAuthenticated, isAdmin } = useAuth();
@@ -44,6 +45,9 @@ const Header = () => {
 
           {/* Actions */}
           <div className="header-actions">
+            {/* Theme Toggle */}
+            <ThemeToggle />
+
             {/* Cart */}
             <Link to="/cart" className="cart-link">
               <span className="cart-icon">🛒</span>
