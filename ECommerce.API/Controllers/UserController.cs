@@ -1,18 +1,21 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
-using ECommerce.Infrastructure.Data;
 using ECommerce.Application.DTOs;
-using BCrypt.Net;
-using ECommerce.Domain.Models;
+using ECommerce.Application.Interfaces.Services;
 
 namespace ECommerce.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class UsersController(AppDbContext db) : ControllerBase
+public class UsersController : ControllerBase
 {
+    private readonly IUserService _userService;
+
+    public UsersController(IUserService userService)
+    {
+        _userService = userService;
+    }
     // GET /api/users/me
     [Authorize]
     [HttpGet("me")]
@@ -22,21 +25,8 @@ public class UsersController(AppDbContext db) : ControllerBase
         if (string.IsNullOrEmpty(idClaim) || !int.TryParse(idClaim, out int userId))
             return Unauthorized("Geçersiz kullanıcı kimliği.");
 
-        var dto = await db.Users
-            .AsNoTracking()
-            .Include(u => u.Role) // 🔁 Rolü dahil et
-            .Where(u => u.Id == userId)
-            .Select(u => new UserDTO(
-                u.Id,
-                u.FullName,
-                u.Email,
-                u.Role.Name, // 🔁 enum değil, ilişkili tablodaki name
-                u.Gender,
-                u.BirthDate
-            ))
-            .SingleOrDefaultAsync();
-
-        return dto is null ? NotFound() : Ok(dto);
+        var user = await _userService.GetUserByIdAsync(userId);
+        return user is null ? NotFound() : Ok(user);
     }
 
     // PUT /api/users/me
@@ -48,19 +38,15 @@ public class UsersController(AppDbContext db) : ControllerBase
         if (string.IsNullOrEmpty(idClaim) || !int.TryParse(idClaim, out int userId))
             return Unauthorized();
 
-        var user = await db.Users.FindAsync(userId);
-        if (user is null) return NotFound();
-
-        user.FullName = dto.FullName;
-        user.Email = dto.Email;
-        user.BirthDate = dto.BirthDate;
-        user.Gender = dto.Gender;
-
-        if (!string.IsNullOrWhiteSpace(dto.Password))
-            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
-
-        await db.SaveChangesAsync();
-        return NoContent();
+        try
+        {
+            await _userService.UpdateUserAsync(userId, dto);
+            return NoContent();
+        }
+        catch (ArgumentException ex)
+        {
+            return NotFound(ex.Message);
+        }
     }
 
     // DELETE /api/users/me
@@ -72,12 +58,14 @@ public class UsersController(AppDbContext db) : ControllerBase
         if (string.IsNullOrEmpty(idClaim) || !int.TryParse(idClaim, out int userId))
             return Unauthorized();
 
-        var user = await db.Users.FindAsync(userId);
-        if (user is null) return NotFound();
-
-        db.Users.Remove(user);
-        await db.SaveChangesAsync();
-
-        return NoContent();
+        try
+        {
+            await _userService.DeleteUserAsync(userId);
+            return NoContent();
+        }
+        catch (ArgumentException ex)
+        {
+            return NotFound(ex.Message);
+        }
     }
 }
