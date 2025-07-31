@@ -1,6 +1,7 @@
 using ECommerce.Application.DTOs;
 using ECommerce.Application.Interfaces.Repositories;
 using ECommerce.Application.Interfaces.Services;
+using ECommerce.Application.Interfaces.Factories;
 using ECommerce.Domain.Models;
 
 namespace ECommerce.Application.Services;
@@ -8,10 +9,12 @@ namespace ECommerce.Application.Services;
 public class ProductService : IProductService
 {
     private readonly IProductRepository _productRepository;
+    private readonly IProductFactory _productFactory;
 
-    public ProductService(IProductRepository productRepository)
+    public ProductService(IProductRepository productRepository, IProductFactory productFactory)
     {
         _productRepository = productRepository;
+        _productFactory = productFactory;
     }
 
     public async Task<ProductDetailDTO?> GetProductByIdAsync(int id)
@@ -112,16 +115,7 @@ public class ProductService : IProductService
 
     public async Task<Product> CreateProductAsync(ProductCreateDTO dto)
     {
-        var product = new Product
-        {
-            Name = dto.Name,
-            Description = dto.Description,
-            Price = dto.Price,
-            Stock = dto.Stock,
-            CategoryId = dto.CategoryId,
-            ImageUrl = dto.ImageUrl
-        };
-
+        var product = _productFactory.CreateProduct(dto);
         return await _productRepository.CreateAsync(product);
     }
 

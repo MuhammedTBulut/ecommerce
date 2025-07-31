@@ -2,6 +2,7 @@ using BCrypt.Net;
 using ECommerce.Application.DTOs;
 using ECommerce.Application.Interfaces.Repositories;
 using ECommerce.Application.Interfaces.Services;
+using ECommerce.Application.Interfaces.Factories;
 using ECommerce.Domain.Models;
 
 namespace ECommerce.Application.Services;
@@ -9,10 +10,12 @@ namespace ECommerce.Application.Services;
 public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
+    private readonly IUserFactory _userFactory;
 
-    public UserService(IUserRepository userRepository)
+    public UserService(IUserRepository userRepository, IUserFactory userFactory)
     {
         _userRepository = userRepository;
+        _userFactory = userFactory;
     }
 
     public async Task<UserDTO?> GetUserByIdAsync(int id)
@@ -60,16 +63,7 @@ public class UserService : IUserService
 
     public async Task<User> CreateUserAsync(UserRegisterDTO dto)
     {
-        var user = new User
-        {
-            FullName = dto.FullName,
-            Email = dto.Email,
-            PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
-            RoleId = 2, // Default role (assuming 2 is customer)
-            Gender = dto.Gender,
-            BirthDate = dto.BirthDate
-        };
-
+        var user = _userFactory.CreateUser(dto);
         return await _userRepository.CreateAsync(user);
     }
 

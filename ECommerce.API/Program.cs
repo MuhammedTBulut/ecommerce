@@ -10,6 +10,13 @@ using ECommerce.Infrastructure.Repositories;
 using ECommerce.Application.Interfaces.Services;
 using ECommerce.Application.Services;
 using ECommerce.Infrastructure.Services;
+using ECommerce.Application.Interfaces.Strategies.Payment;
+using ECommerce.Application.Interfaces.Strategies.Shipping;
+using ECommerce.Infrastructure.Strategies.Payment;
+using ECommerce.Infrastructure.Strategies.Shipping;
+using ECommerce.Application.Services.Strategies;
+using ECommerce.Application.Interfaces.Factories;
+using ECommerce.Application.Factories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +31,12 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICartRepository, CartRepository>();
 
-// 3. Service Layer - Register services
+// 3. Factory Pattern - Register factories
+builder.Services.AddScoped<IUserFactory, UserFactory>();
+builder.Services.AddScoped<IProductFactory, ProductFactory>();
+builder.Services.AddScoped<IOrderFactory, OrderFactory>();
+
+// 4. Service Layer - Register services
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
@@ -32,7 +44,19 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<ECommerce.Application.Services.Interfaces.IActionLogger, ActionLoggerService>();
 
-// 4. JWT Authentication (Token Doğrulama)
+// 5. Strategy Pattern - Register payment strategies
+builder.Services.AddScoped<IPaymentStrategy, CreditCardPaymentStrategy>();
+builder.Services.AddScoped<IPaymentStrategy, BankTransferPaymentStrategy>();
+builder.Services.AddScoped<IPaymentStrategy, CashOnDeliveryPaymentStrategy>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
+
+// 6. Strategy Pattern - Register shipping strategies
+builder.Services.AddScoped<IShippingStrategy, StandardShippingStrategy>();
+builder.Services.AddScoped<IShippingStrategy, ExpressShippingStrategy>();
+builder.Services.AddScoped<IShippingStrategy, EconomicShippingStrategy>();
+builder.Services.AddScoped<IShippingService, ShippingService>();
+
+// 7. JWT Authentication (Token Doğrulama)
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -52,10 +76,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-// 5. Yetkilendirme
+// 8. Yetkilendirme
 builder.Services.AddAuthorization();
 
-// 6. CORS Ayarı (Next.js'den erişim için)
+// 9. CORS Ayarı (Next.js'den erişim için)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -66,7 +90,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-// 7. Swagger (API Dokümantasyonu + JWT desteği)
+// 10. Swagger (API Dokümantasyonu + JWT desteği)
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(config =>
 {
@@ -97,7 +121,7 @@ builder.Services.AddSwaggerGen(config =>
     });
 });
 
-// 8. MVC Controller desteği
+// 11. MVC Controller desteği
 builder.Services.AddControllers();
 
 
