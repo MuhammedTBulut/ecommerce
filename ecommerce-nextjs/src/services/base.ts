@@ -79,7 +79,8 @@ export class HttpClient implements IHttpClient {
       },
       (error: AxiosError) => {
         const statusCode = error.response?.status || 500;
-        const message = error.response?.data?.message || error.message || 'An error occurred';
+        const errorData = error.response?.data as any;
+        const message = errorData?.message || error.message || 'An error occurred';
         
         // Handle unauthorized errors
         if (statusCode === 401) {

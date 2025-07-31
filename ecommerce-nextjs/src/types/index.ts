@@ -181,6 +181,9 @@ export interface AuthContextType {
   isAuthenticated: boolean;
   isAdmin: boolean;
   loading: boolean;
+  updateProfile: (updatedData: Partial<User>) => Promise<void>;
+  refreshToken: () => Promise<void>;
+  hasPermission: (permission: string) => boolean;
 }
 
 // Cart Context Types
@@ -191,4 +194,12 @@ export interface CartContextType {
   updateQuantity: (itemId: number, quantity: number) => Promise<void>;
   clearCart: () => Promise<void>;
   loading: boolean;
+  getItemCount: () => number;
+  getCartTotal: () => number;
+  isInCart: (productId: number) => boolean;
+  getCartItem: (productId: number) => CartItem | undefined;
+  applyCoupon: (couponCode: string) => Promise<void>;
+  removeCoupon: () => Promise<void>;
+  validateCart: () => Promise<{ isValid: boolean; errors: string[] }>;
+  refreshCart: () => Promise<void>;
 }
