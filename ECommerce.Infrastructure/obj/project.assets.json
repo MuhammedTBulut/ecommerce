@@ -2,6 +2,19 @@
   "version": 3,
   "targets": {
     "net8.0": {
+      "BCrypt.Net-Next/4.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/BCrypt.Net-Next.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/BCrypt.Net-Next.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Humanizer.Core/2.14.1": {
         "type": "package",
         "compile": {
@@ -959,6 +972,21 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "ECommerce.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "BCrypt.Net-Next": "4.0.3",
+          "ECommerce.Domain": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "9.0.7"
+        },
+        "compile": {
+          "bin/placeholder/ECommerce.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ECommerce.Application.dll": {}
+        }
+      },
       "ECommerce.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
@@ -972,6 +1000,37 @@
     }
   },
   "libraries": {
+    "BCrypt.Net-Next/4.0.3": {
+      "sha512": "W+U9WvmZQgi5cX6FS5GDtDoPzUCV4LkBLkywq/kRZhuDwcbavOzcDAr3LXJFqHUi952Yj3LEYoWW0jbEUQChsA==",
+      "type": "package",
+      "path": "bcrypt.net-next/4.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "bcrypt.net-next.4.0.3.nupkg.sha512",
+        "bcrypt.net-next.nuspec",
+        "ico.png",
+        "lib/net20/BCrypt.Net-Next.dll",
+        "lib/net20/BCrypt.Net-Next.xml",
+        "lib/net35/BCrypt.Net-Next.dll",
+        "lib/net35/BCrypt.Net-Next.xml",
+        "lib/net462/BCrypt.Net-Next.dll",
+        "lib/net462/BCrypt.Net-Next.xml",
+        "lib/net472/BCrypt.Net-Next.dll",
+        "lib/net472/BCrypt.Net-Next.xml",
+        "lib/net48/BCrypt.Net-Next.dll",
+        "lib/net48/BCrypt.Net-Next.xml",
+        "lib/net5.0/BCrypt.Net-Next.dll",
+        "lib/net5.0/BCrypt.Net-Next.xml",
+        "lib/net6.0/BCrypt.Net-Next.dll",
+        "lib/net6.0/BCrypt.Net-Next.xml",
+        "lib/netstandard2.0/BCrypt.Net-Next.dll",
+        "lib/netstandard2.0/BCrypt.Net-Next.xml",
+        "lib/netstandard2.1/BCrypt.Net-Next.dll",
+        "lib/netstandard2.1/BCrypt.Net-Next.xml",
+        "readme.md"
+      ]
+    },
     "Humanizer.Core/2.14.1": {
       "sha512": "lQKvtaTDOXnoVJ20ibTuSIOf2i0uO0MPbDhd1jm238I+U/2ZnRENj0cktKZhtchBMtCUSRQ5v4xBCUbKNmyVMw==",
       "type": "package",
@@ -2891,6 +2950,11 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "ECommerce.Application/1.0.0": {
+      "type": "project",
+      "path": "../ECommerce.Application/ECommerce.Application.csproj",
+      "msbuildProject": "../ECommerce.Application/ECommerce.Application.csproj"
+    },
     "ECommerce.Domain/1.0.0": {
       "type": "project",
       "path": "../ECommerce.Domain/ECommerce.Domain.csproj",
@@ -2899,25 +2963,26 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "ECommerce.Application >= 1.0.0",
       "ECommerce.Domain >= 1.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.7",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 9.0.4"
     ]
   },
   "packageFolders": {
-    "/Users/muhammedbulut/.nuget/packages/": {}
+    "/home/runner/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Infrastructure/ECommerce.Infrastructure.csproj",
+      "projectUniqueName": "/home/runner/work/ecommerce/ecommerce/ECommerce.Infrastructure/ECommerce.Infrastructure.csproj",
       "projectName": "ECommerce.Infrastructure",
-      "projectPath": "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Infrastructure/ECommerce.Infrastructure.csproj",
-      "packagesPath": "/Users/muhammedbulut/.nuget/packages/",
-      "outputPath": "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Infrastructure/obj/",
+      "projectPath": "/home/runner/work/ecommerce/ecommerce/ECommerce.Infrastructure/ECommerce.Infrastructure.csproj",
+      "packagesPath": "/home/runner/.nuget/packages/",
+      "outputPath": "/home/runner/work/ecommerce/ecommerce/ECommerce.Infrastructure/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/muhammedbulut/.nuget/NuGet/NuGet.Config"
+        "/home/runner/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -2929,8 +2994,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Domain/ECommerce.Domain.csproj": {
-              "projectPath": "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Domain/ECommerce.Domain.csproj"
+            "/home/runner/work/ecommerce/ecommerce/ECommerce.Application/ECommerce.Application.csproj": {
+              "projectPath": "/home/runner/work/ecommerce/ecommerce/ECommerce.Application/ECommerce.Application.csproj"
+            },
+            "/home/runner/work/ecommerce/ecommerce/ECommerce.Domain/ECommerce.Domain.csproj": {
+              "projectPath": "/home/runner/work/ecommerce/ecommerce/ECommerce.Domain/ECommerce.Domain.csproj"
             }
           }
         }
@@ -2972,7 +3040,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.118/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
