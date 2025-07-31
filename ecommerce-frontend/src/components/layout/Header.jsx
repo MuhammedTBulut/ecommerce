@@ -56,7 +56,7 @@ const Header = () => {
             {isAuthenticated ? (
               <div className="user-menu">
                 <button 
-                  className="user-button"
+                  className="user-button authenticated"
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
                 >
                   <span className="user-icon">👤</span>
@@ -69,9 +69,10 @@ const Header = () => {
                 </div>
               </div>
             ) : (
-              <div className="auth-links">
-                <Link to="/login" className="auth-link">Login</Link>
-                <Link to="/register" className="auth-link auth-link-primary">Register</Link>
+              <div className="auth-menu">
+                <Link to="/login" className="profile-icon-link" title="Sign In">
+                  <span className="profile-icon">👤</span>
+                </Link>
               </div>
             )}
 
