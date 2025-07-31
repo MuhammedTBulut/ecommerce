@@ -765,19 +765,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/muhammedbulut/.nuget/packages/": {}
+    "/home/runner/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Application/ECommerce.Application.csproj",
+      "projectUniqueName": "/home/runner/work/ecommerce/ecommerce/ECommerce.Application/ECommerce.Application.csproj",
       "projectName": "ECommerce.Application",
-      "projectPath": "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Application/ECommerce.Application.csproj",
-      "packagesPath": "/Users/muhammedbulut/.nuget/packages/",
-      "outputPath": "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Application/obj/",
+      "projectPath": "/home/runner/work/ecommerce/ecommerce/ECommerce.Application/ECommerce.Application.csproj",
+      "packagesPath": "/home/runner/.nuget/packages/",
+      "outputPath": "/home/runner/work/ecommerce/ecommerce/ECommerce.Application/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/muhammedbulut/.nuget/NuGet/NuGet.Config"
+        "/home/runner/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -789,11 +789,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Domain/ECommerce.Domain.csproj": {
-              "projectPath": "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Domain/ECommerce.Domain.csproj"
+            "/home/runner/work/ecommerce/ecommerce/ECommerce.Domain/ECommerce.Domain.csproj": {
+              "projectPath": "/home/runner/work/ecommerce/ecommerce/ECommerce.Domain/ECommerce.Domain.csproj"
             },
-            "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Infrastructure/ECommerce.Infrastructure.csproj": {
-              "projectPath": "/Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Infrastructure/ECommerce.Infrastructure.csproj"
+            "/home/runner/work/ecommerce/ecommerce/ECommerce.Infrastructure/ECommerce.Infrastructure.csproj": {
+              "projectPath": "/home/runner/work/ecommerce/ecommerce/ECommerce.Infrastructure/ECommerce.Infrastructure.csproj"
             }
           }
         }
@@ -829,16 +829,8 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.118/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1900",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Error occurred while getting package vulnerability data: The SSL connection could not be established, see inner exception."
-    }
-  ]
+  }
 }
