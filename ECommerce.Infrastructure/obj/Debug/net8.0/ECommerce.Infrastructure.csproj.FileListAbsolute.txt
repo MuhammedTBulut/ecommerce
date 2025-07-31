@@ -33,3 +33,5 @@
 /home/runner/work/ecommerce/ecommerce/ECommerce.Infrastructure/obj/Debug/net8.0/ECommerce.Infrastructure.pdb
 /home/runner/work/ecommerce/ecommerce/ECommerce.Infrastructure/obj/Debug/net8.0/ECommerce.Infrastructure.genruntimeconfig.cache
 /home/runner/work/ecommerce/ecommerce/ECommerce.Infrastructure/obj/Debug/net8.0/ref/ECommerce.Infrastructure.dll
+/home/runner/work/ecommerce/ecommerce/ECommerce.Infrastructure/bin/Debug/net8.0/ECommerce.Application.dll
+/home/runner/work/ecommerce/ecommerce/ECommerce.Infrastructure/bin/Debug/net8.0/ECommerce.Application.pdb

@@ -812,7 +812,6 @@
       "ECommerce.Application/1.0.0": {
         "dependencies": {
           "ECommerce.Domain": "1.0.0",
-          "ECommerce.Infrastructure": "1.0.0",
           "Microsoft.EntityFrameworkCore": "9.0.7"
         },
         "runtime": {
@@ -826,6 +825,7 @@
       },
       "ECommerce.Infrastructure/1.0.0": {
         "dependencies": {
+          "ECommerce.Application": "1.0.0",
           "ECommerce.Domain": "1.0.0",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "9.0.4"
         },

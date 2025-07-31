@@ -127,9 +127,6 @@
             "projectReferences": {
               "/home/runner/work/ecommerce/ecommerce/ECommerce.Domain/ECommerce.Domain.csproj": {
                 "projectPath": "/home/runner/work/ecommerce/ecommerce/ECommerce.Domain/ECommerce.Domain.csproj"
-              },
-              "/home/runner/work/ecommerce/ecommerce/ECommerce.Infrastructure/ECommerce.Infrastructure.csproj": {
-                "projectPath": "/home/runner/work/ecommerce/ecommerce/ECommerce.Infrastructure/ECommerce.Infrastructure.csproj"
               }
             }
           }
@@ -244,6 +241,9 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
+              "/home/runner/work/ecommerce/ecommerce/ECommerce.Application/ECommerce.Application.csproj": {
+                "projectPath": "/home/runner/work/ecommerce/ecommerce/ECommerce.Application/ECommerce.Application.csproj"
+              },
               "/home/runner/work/ecommerce/ecommerce/ECommerce.Domain/ECommerce.Domain.csproj": {
                 "projectPath": "/home/runner/work/ecommerce/ecommerce/ECommerce.Domain/ECommerce.Domain.csproj"
               }

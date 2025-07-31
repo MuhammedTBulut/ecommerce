@@ -959,6 +959,20 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "ECommerce.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "ECommerce.Domain": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "9.0.7"
+        },
+        "compile": {
+          "bin/placeholder/ECommerce.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ECommerce.Application.dll": {}
+        }
+      },
       "ECommerce.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
@@ -2891,6 +2905,11 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "ECommerce.Application/1.0.0": {
+      "type": "project",
+      "path": "../ECommerce.Application/ECommerce.Application.csproj",
+      "msbuildProject": "../ECommerce.Application/ECommerce.Application.csproj"
+    },
     "ECommerce.Domain/1.0.0": {
       "type": "project",
       "path": "../ECommerce.Domain/ECommerce.Domain.csproj",
@@ -2899,6 +2918,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "ECommerce.Application >= 1.0.0",
       "ECommerce.Domain >= 1.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.7",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 9.0.4"
@@ -2929,6 +2949,9 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
+            "/home/runner/work/ecommerce/ecommerce/ECommerce.Application/ECommerce.Application.csproj": {
+              "projectPath": "/home/runner/work/ecommerce/ecommerce/ECommerce.Application/ECommerce.Application.csproj"
+            },
             "/home/runner/work/ecommerce/ecommerce/ECommerce.Domain/ECommerce.Domain.csproj": {
               "projectPath": "/home/runner/work/ecommerce/ecommerce/ECommerce.Domain/ECommerce.Domain.csproj"
             }
