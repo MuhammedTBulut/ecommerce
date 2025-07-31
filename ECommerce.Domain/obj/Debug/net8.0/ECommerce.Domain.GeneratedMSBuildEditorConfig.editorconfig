@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ECommerce.Domain
-build_property.ProjectDir = /Users/muhammedbulut/Desktop/Ecommerce/ECommerce.Domain/
+build_property.ProjectDir = /home/runner/work/ecommerce/ecommerce/ECommerce.Domain/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
