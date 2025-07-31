@@ -5,6 +5,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
 using ECommerce.Infrastructure.Data;
+using ECommerce.Application.DependencyInjection;
+using ECommerce.Infrastructure.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -79,6 +81,10 @@ builder.Services.AddSwaggerGen(config =>
 
 // 6. MVC Controller desteği
 builder.Services.AddControllers();
+
+// 7. Application and Infrastructure Services
+builder.Services.AddApplicationServices();
+builder.Services.AddInfrastructureServices();
 
 
 var app = builder.Build();
