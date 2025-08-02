@@ -3,9 +3,10 @@
 import { useAuth } from '@/context/AuthContext';
 import { useCart } from '@/context/CartContext';
 import Link from 'next/link';
+import EnhancedHeader from '@/components/Header/EnhancedHeader';
 
 export default function Home() {
-  const { user, isAuthenticated, logout, loading } = useAuth();
+  const { user, isAuthenticated, loading } = useAuth();
   const { cart, getItemCount, getCartTotal } = useCart();
 
   if (loading) {
@@ -18,71 +19,8 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Navigation */}
-      <nav className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <div className="text-2xl font-bold text-orange-600">
-                E-Store
-              </div>
-            </div>
-            
-            <div className="flex items-center space-x-4">
-              {isAuthenticated ? (
-                <>
-                  <span className="text-gray-700">
-                    Welcome, {user?.fullName}
-                  </span>
-                  
-                  {/* Cart indicator */}
-                  <div className="relative">
-                    <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.293 2.293a1 1 0 00-.293.707V19a2 2 0 002 2h12a2 2 0 002-2v-2.586a1 1 0 00-.293-.707L15 13" />
-                    </svg>
-                    {cart && getItemCount() > 0 && (
-                      <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                        {getItemCount()}
-                      </span>
-                    )}
-                  </div>
-                  
-                  {user?.role.name === 'Admin' || user?.role.name === 'SuperAdmin' ? (
-                    <Link
-                      href="/admin"
-                      className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700"
-                    >
-                      Admin Panel
-                    </Link>
-                  ) : null}
-                  
-                  <button
-                    onClick={logout}
-                    className="bg-gray-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-700"
-                  >
-                    Logout
-                  </button>
-                </>
-              ) : (
-                <>
-                  <Link
-                    href="/auth/login"
-                    className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Sign In
-                  </Link>
-                  <Link
-                    href="/auth/register"
-                    className="bg-orange-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-orange-700"
-                  >
-                    Sign Up
-                  </Link>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
-      </nav>
+      {/* Enhanced Header */}
+      <EnhancedHeader />
 
       {/* Hero Section */}
       <div className="relative bg-white overflow-hidden">
