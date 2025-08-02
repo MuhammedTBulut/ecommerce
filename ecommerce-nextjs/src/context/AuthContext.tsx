@@ -77,7 +77,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       toast.success(`Welcome back, ${response.user.fullName}!`);
       
       // Redirect admin users to admin panel
-      if (response.user.role.name === 'Admin' || response.user.role.name === 'SuperAdmin') {
+      if (response.user.role === 'Admin' || response.user.role === 'SuperAdmin') {
         window.location.href = '/admin';
       } else {
         window.location.href = '/';
@@ -149,7 +149,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
    */
   const isAdmin = Boolean(
     user && 
-    (user.role.name === 'Admin' || user.role.name === 'SuperAdmin')
+    (user.role === 'Admin' || user.role === 'SuperAdmin')
   );
 
   /**
@@ -198,7 +198,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     if (!user) return false;
     
     // Basic role-based permissions
-    switch (user.role.name) {
+    switch (user.role) {
       case 'SuperAdmin':
         return true; // SuperAdmin has all permissions
       case 'Admin':
@@ -303,9 +303,9 @@ export function useRoleAccess() {
   const { user, isAdmin, hasPermission } = useAuth();
 
   return {
-    isCustomer: user?.role.name === 'Customer',
+    isCustomer: user?.role === 'Customer',
     isAdmin,
-    isSuperAdmin: user?.role.name === 'SuperAdmin',
+    isSuperAdmin: user?.role === 'SuperAdmin',
     hasPermission,
     canRead: hasPermission('read'),
     canWrite: hasPermission('write'),

@@ -3,10 +3,9 @@ export interface User {
   id: number;
   fullName: string;
   email: string;
-  birthDate: string;
-  gender: string;
-  role: Role;
-  createdAt: string;
+  birthDate?: string; // Optional since backend has nullable DateTime
+  gender?: boolean | null; // Backend returns boolean for gender, not string
+  role: string; // Backend returns role as string, not object
 }
 
 export interface Role {
@@ -24,8 +23,8 @@ export interface RegisterDTO {
   fullName: string;
   email: string;
   password: string;
-  birthDate: string;
-  gender: string;
+  birthDate: string; // Will be converted to DateTime on backend
+  gender: boolean | null; // Backend expects boolean
 }
 
 // Product Types

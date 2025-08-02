@@ -86,8 +86,15 @@ export default function RegisterPage() {
 
     try {
       setIsSubmitting(true);
-      const { confirmPassword, ...registerData } = formData;
-      await register(registerData);
+      const { confirmPassword, gender, ...registerData } = formData;
+      
+      // Convert gender from string to boolean
+      const genderBoolean = gender === 'male' ? true : gender === 'female' ? false : null;
+      
+      await register({
+        ...registerData,
+        gender: genderBoolean
+      });
     } catch (error) {
       // Error is handled by the context and toast
       console.error('Registration error:', error);
