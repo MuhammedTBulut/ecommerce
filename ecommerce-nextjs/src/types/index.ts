@@ -99,7 +99,7 @@ export enum OrderStatus {
   Cancelled = 'Cancelled'
 }
 
-// Comment Types
+// Comment/Review Types (Updated)
 export interface ProductComment {
   id: number;
   productId: number;
@@ -108,6 +108,30 @@ export interface ProductComment {
   content: string;
   rating: number;
   isApproved: boolean;
+  createdAt: string;
+}
+
+export interface ReviewFormData {
+  content: string;
+  rating: number;
+}
+
+export interface ReviewStats {
+  averageRating: number;
+  totalComments: number;
+  ratingDistribution: Record<number, number>;
+}
+
+// Campaign Types (New)
+export interface Campaign {
+  id: number;
+  title: string;
+  description: string;
+  imageUrl?: string;
+  discount: number;
+  startDate: string;
+  endDate: string;
+  isActive: boolean;
   createdAt: string;
 }
 
