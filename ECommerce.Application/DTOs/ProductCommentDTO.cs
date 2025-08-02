@@ -8,6 +8,8 @@ namespace ECommerce.Application.DTOs
    public record ProductCommentDTO(
     int Id,
     string Content,
+    int Rating,
+    bool IsApproved,
     string UserFullName,
     DateTime CreatedAt
 );

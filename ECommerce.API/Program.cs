@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
 using ECommerce.Infrastructure.Data;
+using ECommerce.API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,7 +36,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 // 3. Yetkilendirme
 builder.Services.AddAuthorization();
 
-// 4. CORS Ayarı (Next.js'den erişim için)
+// 4. CORS Ayarı (Next.js'den erişim için - Port 5095)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -80,6 +81,12 @@ builder.Services.AddSwaggerGen(config =>
 // 6. MVC Controller desteği
 builder.Services.AddControllers();
 
+// 7. Logging configuration
+builder.Services.AddLogging(config =>
+{
+    config.AddConsole();
+    config.AddDebug();
+});
 
 var app = builder.Build();
 
@@ -87,7 +94,10 @@ var app = builder.Build();
 var hash = BCrypt.Net.BCrypt.HashPassword("password123");
 Console.WriteLine($"Hashed: {hash}");
 
-// 1. Swagger (geliştirme modunda API test arayüzü)
+// 1. Global Error Handling Middleware (First in pipeline)
+app.UseErrorHandling();
+
+// 2. Swagger (geliştirme modunda API test arayüzü)
 app.UseSwagger();
 app.UseSwaggerUI(config =>
 {
@@ -96,12 +106,15 @@ app.UseSwaggerUI(config =>
     config.DocumentTitle = "ECommerce API Dökümantasyonu";
 });
 
-// 🔐 2. CORS → 3. Authentication → 4. Authorization
+// 🔐 3. CORS → 4. Authentication → 5. Authorization
 app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
 
-// 5. Controller route mapping
+// 6. Controller route mapping
 app.MapControllers();
+
+// Configure app to run on port 5095
+app.Urls.Add("http://localhost:5095");
 
 app.Run();

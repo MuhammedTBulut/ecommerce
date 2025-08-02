@@ -91,11 +91,18 @@ export class CommentService extends BaseService implements ICommentService {
   async getComments(params: CommentFilterParams = {}): Promise<PaginatedResponse<ProductComment>> {
     return this.handleRequest(async () => {
       const queryString = this.buildQueryParams(params);
-      const response = await this.httpClient.get<PaginatedResponse<ProductComment>>(
-        `/comments${queryString}`
+      const response = await this.httpClient.get<ProductComment[]>(
+        `/ProductComments${queryString}`
       );
       
-      return response;
+      // Convert simple array response to paginated format
+      return {
+        data: response || [],
+        totalCount: (response || []).length,
+        pageNumber: params.page || 1,
+        pageSize: params.pageSize || 10,
+        totalPages: Math.ceil((response || []).length / (params.pageSize || 10))
+      };
     }, 'Failed to fetch comments');
   }
 
@@ -106,15 +113,11 @@ export class CommentService extends BaseService implements ICommentService {
     this.validateRequired({ id }, ['id']);
 
     return this.handleRequest(async () => {
-      const response = await this.httpClient.get<ApiResponse<ProductComment>>(
-        `/comments/${id}`
+      const response = await this.httpClient.get<ProductComment>(
+        `/ProductComments/${id}`
       );
       
-      if (response.success && response.data) {
-        return response.data;
-      }
-      
-      throw new Error(response.message || 'Comment not found');
+      return response;
     }, `Failed to fetch comment with ID: ${id}`);
   }
 
@@ -129,16 +132,15 @@ export class CommentService extends BaseService implements ICommentService {
     }
 
     return this.handleRequest(async () => {
-      const response = await this.httpClient.post<ApiResponse<ProductComment>>(
-        '/comments',
-        comment
+      const response = await this.httpClient.post<ProductComment>(
+        `/ProductComments?productId=${comment.productId}`,
+        {
+          content: comment.content,
+          rating: comment.rating
+        }
       );
       
-      if (response.success && response.data) {
-        return response.data;
-      }
-      
-      throw new Error(response.message || 'Failed to create comment');
+      return response;
     }, 'Failed to create comment');
   }
 
@@ -196,11 +198,18 @@ export class CommentService extends BaseService implements ICommentService {
       const queryParams = { ...params, productId };
       const queryString = this.buildQueryParams(queryParams);
       
-      const response = await this.httpClient.get<PaginatedResponse<ProductComment>>(
-        `/products/${productId}/comments${queryString}`
+      const response = await this.httpClient.get<ProductComment[]>(
+        `/ProductComments/product/${productId}${queryString}`
       );
       
-      return response;
+      // Convert simple array response to paginated format
+      return {
+        data: response || [],
+        totalCount: (response || []).length,
+        pageNumber: params.page || 1,
+        pageSize: params.pageSize || 10,
+        totalPages: Math.ceil((response || []).length / (params.pageSize || 10))
+      };
     }, `Failed to fetch comments for product: ${productId}`);
   }
 
@@ -286,17 +295,13 @@ export class CommentService extends BaseService implements ICommentService {
     this.validateRequired({ productId }, ['productId']);
 
     return this.handleRequest(async () => {
-      const response = await this.httpClient.get<ApiResponse<{
+      const response = await this.httpClient.get<{
         averageRating: number;
         totalComments: number;
         ratingDistribution: Record<number, number>;
-      }>>(`/products/${productId}/rating-summary`);
+      }>(`/ProductComments/product/${productId}/rating-summary`);
       
-      if (response.success && response.data) {
-        return response.data;
-      }
-      
-      throw new Error(response.message || 'Failed to get rating summary');
+      return response;
     }, `Failed to get rating summary for product: ${productId}`);
   }
 }

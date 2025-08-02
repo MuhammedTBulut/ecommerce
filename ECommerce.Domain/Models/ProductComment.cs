@@ -8,6 +8,8 @@ public class ProductComment
     public int UserId { get; set; }
 
     public string Content { get; set; }=null!;
+    public int Rating { get; set; } // 1-5 star rating
+    public bool IsApproved { get; set; } = false; // For moderation
     public DateTime CreatedAt { get; set; }
 
     public Product Product { get; set; }=null!;
