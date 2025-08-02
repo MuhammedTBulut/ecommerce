@@ -28,7 +28,7 @@ public class AuthController(AppDbContext db, IConfiguration config) : Controller
             if (user == null)
             {
                 Console.WriteLine($"❌ User not found: {dto.Email}");
-                return Unauthorized("Invalid credentials.");
+                return Unauthorized(ApiResponse<AuthResponseDTO>.CreateError("Invalid credentials."));
             }
 
             Console.WriteLine($"✅ User found: {user.FullName}, Role: {user.Role?.Name}");
@@ -37,7 +37,7 @@ public class AuthController(AppDbContext db, IConfiguration config) : Controller
             if (!verifyResult)
             {
                 Console.WriteLine($"❌ Password verification failed for: {dto.Email}");
-                return Unauthorized("Invalid credentials.");
+                return Unauthorized(ApiResponse<AuthResponseDTO>.CreateError("Invalid credentials."));
             }
 
             Console.WriteLine($"✅ Password verified for: {dto.Email}");
@@ -88,21 +88,27 @@ public class AuthController(AppDbContext db, IConfiguration config) : Controller
             Console.WriteLine($"📏 Token length: {tokenString.Length}");
             Console.WriteLine($"🔤 Token preview: {tokenString.Substring(0, Math.Min(50, tokenString.Length))}...");
 
-            return Ok(new { 
-                token = tokenString,
-                user = new {
-                    id = user.Id,
-                    fullName = user.FullName,
-                    email = user.Email,
-                    role = user.Role?.Name
-                }
-            });
+            // Create the response using standardized format
+            var authResponse = new AuthResponseDTO
+            {
+                Token = tokenString,
+                User = new UserDTO(
+                    user.Id,
+                    user.FullName,
+                    user.Email,
+                    user.Role?.Name ?? "Customer",
+                    user.Gender,
+                    user.BirthDate
+                )
+            };
+
+            return Ok(ApiResponse<AuthResponseDTO>.CreateSuccess(authResponse, "Login successful"));
         }
         catch (Exception ex)
         {
             Console.WriteLine($"🚫 Login error: {ex.Message}");
             Console.WriteLine($"📍 Stack trace: {ex.StackTrace}");
-            return StatusCode(500, "Internal server error during login.");
+            return StatusCode(500, ApiResponse<AuthResponseDTO>.CreateError("Internal server error during login."));
         }
     }
 
@@ -113,14 +119,14 @@ public class AuthController(AppDbContext db, IConfiguration config) : Controller
         {
             bool emailExists = await db.Users.AnyAsync(u => u.Email == dto.Email);
             if (emailExists)
-                return BadRequest("Bu e-posta zaten kayıtlı.");
+                return BadRequest(ApiResponse<AuthResponseDTO>.CreateError("Bu e-posta zaten kayıtlı."));
 
             var passwordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
 
             // 👇 Rolü veritabanından çek
             var role = await db.Roles.FirstOrDefaultAsync(r => r.Name == "Customer");
             if (role == null)
-                return BadRequest("Customer rolü bulunamadı. Lütfen bir admin tanımlasın.");
+                return BadRequest(ApiResponse<AuthResponseDTO>.CreateError("Customer rolü bulunamadı. Lütfen bir admin tanımlasın."));
 
             var user = new User
             {
@@ -137,12 +143,55 @@ public class AuthController(AppDbContext db, IConfiguration config) : Controller
 
             Console.WriteLine($"✅ New user registered: {dto.Email}");
 
-            return Ok("Kayıt başarılı.");
+            // Generate JWT token for the new user (same logic as login)
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.FullName),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Role, role.Name)
+            };
+
+            var jwtKey = config["Jwt:Key"];
+            var jwtIssuer = config["Jwt:Issuer"];
+            var jwtAudience = config["Jwt:Audience"];
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey!));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.UtcNow.AddHours(3),
+                Issuer = jwtIssuer,
+                Audience = jwtAudience,
+                SigningCredentials = creds
+            };
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var tokenString = tokenHandler.WriteToken(token);
+
+            // Create the response using standardized format
+            var authResponse = new AuthResponseDTO
+            {
+                Token = tokenString,
+                User = new UserDTO(
+                    user.Id,
+                    user.FullName,
+                    user.Email,
+                    role.Name,
+                    user.Gender,
+                    user.BirthDate
+                )
+            };
+
+            return Ok(ApiResponse<AuthResponseDTO>.CreateSuccess(authResponse, "Registration successful"));
         }
         catch (Exception ex)
         {
             Console.WriteLine($"🚫 Registration error: {ex.Message}");
-            return StatusCode(500, "Internal server error during registration.");
+            return StatusCode(500, ApiResponse<AuthResponseDTO>.CreateError("Internal server error during registration."));
         }
     }
 }

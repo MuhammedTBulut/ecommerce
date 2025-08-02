@@ -10,7 +10,7 @@ export default function AdminDashboard() {
   const router = useRouter();
 
   useEffect(() => {
-    if (!loading && (!isAuthenticated || (user?.role.name !== 'Admin' && user?.role.name !== 'SuperAdmin'))) {
+    if (!loading && (!isAuthenticated || (user?.role !== 'Admin' && user?.role !== 'SuperAdmin'))) {
       router.push('/');
     }
   }, [isAuthenticated, user, loading, router]);
@@ -23,7 +23,7 @@ export default function AdminDashboard() {
     );
   }
 
-  if (!isAuthenticated || (user?.role.name !== 'Admin' && user?.role.name !== 'SuperAdmin')) {
+  if (!isAuthenticated || (user?.role !== 'Admin' && user?.role !== 'SuperAdmin')) {
     return null;
   }
 
