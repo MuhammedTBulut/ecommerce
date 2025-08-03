@@ -2,6 +2,7 @@ import { BaseService, IHttpClient } from './base';
 import { User, LoginDTO, RegisterDTO, ApiResponse } from '@/types';
 import Cookies from 'js-cookie';
 import { ApiConfig } from './base';
+import { MockAuthService } from './mockAuth';
 
 /**
  * Authentication Service Interface
@@ -30,23 +31,46 @@ export class AuthService extends BaseService implements IAuthService {
     this.validateRequired(credentials, ['email', 'password']);
 
     return this.handleRequest(async () => {
-      const response = await this.httpClient.post<ApiResponse<{ user: User; token: string }>>(
-        '/auth/login',
-        credentials
-      );
+      try {
+        // Try to make API call first
+        const response = await this.httpClient.post<ApiResponse<{ user: User; token: string }>>(
+          '/auth/login',
+          credentials
+        );
 
-      if (response.success && response.data) {
-        // Store token in HTTP-only cookie (more secure)
-        Cookies.set(ApiConfig.TOKEN_COOKIE, response.data.token, {
-          expires: 7, // 7 days
-          secure: process.env.NODE_ENV === 'production',
-          sameSite: 'strict'
-        });
+        if (response.success && response.data) {
+          // Store token in HTTP-only cookie (more secure)
+          Cookies.set(ApiConfig.TOKEN_COOKIE, response.data.token, {
+            expires: 7, // 7 days
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict'
+          });
 
-        return response.data;
+          return response.data;
+        }
+
+        throw new Error(response.message || 'Login failed');
+      } catch (error: any) {
+        // Check if it's a network error (backend not available)
+        if (error.message?.includes('Network Error') || error.code === 'ERR_NETWORK' || error.code === 'ERR_CONNECTION_REFUSED') {
+          console.warn('Backend API not available, falling back to mock authentication');
+          
+          // Use mock authentication as fallback
+          const mockResult = await MockAuthService.login(credentials);
+          
+          // Store token in cookie for consistency
+          Cookies.set(ApiConfig.TOKEN_COOKIE, mockResult.token, {
+            expires: 7,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict'
+          });
+
+          return mockResult;
+        }
+        
+        // Re-throw other errors
+        throw error;
       }
-
-      throw new Error(response.message || 'Login failed');
     }, 'Login failed');
   }
 
@@ -57,29 +81,51 @@ export class AuthService extends BaseService implements IAuthService {
     this.validateRequired(userData, ['fullName', 'email', 'password', 'birthDate', 'gender']);
 
     return this.handleRequest(async () => {
-      // Ensure user registers with Customer role only
-      const registerData = {
-        ...userData,
-        role: 'Customer' // Force customer role as per requirements
-      };
+      try {
+        // Ensure user registers with Customer role only
+        const registerData = {
+          ...userData,
+          role: 'Customer' // Force customer role as per requirements
+        };
 
-      const response = await this.httpClient.post<ApiResponse<{ user: User; token: string }>>(
-        '/auth/register',
-        registerData
-      );
+        const response = await this.httpClient.post<ApiResponse<{ user: User; token: string }>>(
+          '/auth/register',
+          registerData
+        );
 
-      if (response.success && response.data) {
-        // Store token in HTTP-only cookie
-        Cookies.set(ApiConfig.TOKEN_COOKIE, response.data.token, {
-          expires: 7,
-          secure: process.env.NODE_ENV === 'production',
-          sameSite: 'strict'
-        });
+        if (response.success && response.data) {
+          // Store token in HTTP-only cookie
+          Cookies.set(ApiConfig.TOKEN_COOKIE, response.data.token, {
+            expires: 7,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict'
+          });
 
-        return response.data;
+          return response.data;
+        }
+
+        throw new Error(response.message || 'Registration failed');
+      } catch (error: any) {
+        // Check if it's a network error (backend not available)
+        if (error.message?.includes('Network Error') || error.code === 'ERR_NETWORK' || error.code === 'ERR_CONNECTION_REFUSED') {
+          console.warn('Backend API not available, falling back to mock authentication');
+          
+          // Use mock authentication as fallback
+          const mockResult = await MockAuthService.register(userData);
+          
+          // Store token in cookie for consistency
+          Cookies.set(ApiConfig.TOKEN_COOKIE, mockResult.token, {
+            expires: 7,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict'
+          });
+
+          return mockResult;
+        }
+        
+        // Re-throw other errors
+        throw error;
       }
-
-      throw new Error(response.message || 'Registration failed');
     }, 'Registration failed');
   }
 
@@ -91,7 +137,11 @@ export class AuthService extends BaseService implements IAuthService {
       // Call logout endpoint if available
       try {
         await this.httpClient.post('/auth/logout');
-      } catch (error) {
+      } catch (error: any) {
+        // If it's a network error, use mock logout
+        if (error.message?.includes('Network Error') || error.code === 'ERR_NETWORK' || error.code === 'ERR_CONNECTION_REFUSED') {
+          await MockAuthService.logout();
+        }
         // Continue with logout even if API call fails
         console.warn('Logout API call failed:', error);
       }
@@ -112,13 +162,28 @@ export class AuthService extends BaseService implements IAuthService {
    */
   async getCurrentUser(): Promise<User> {
     return this.handleRequest(async () => {
-      const response = await this.httpClient.get<ApiResponse<User>>('/auth/me');
-      
-      if (response.success && response.data) {
-        return response.data;
-      }
+      try {
+        const response = await this.httpClient.get<ApiResponse<User>>('/auth/me');
+        
+        if (response.success && response.data) {
+          return response.data;
+        }
 
-      throw new Error(response.message || 'Failed to get user data');
+        throw new Error(response.message || 'Failed to get user data');
+      } catch (error: any) {
+        // Check if it's a network error (backend not available)
+        if (error.message?.includes('Network Error') || error.code === 'ERR_NETWORK' || error.code === 'ERR_CONNECTION_REFUSED') {
+          // Fallback to mock service
+          const user = MockAuthService.getCurrentUser();
+          if (user) {
+            return user;
+          }
+          throw new Error('No authenticated user found');
+        }
+        
+        // Re-throw other errors
+        throw error;
+      }
     }, 'Failed to get current user');
   }
 
@@ -160,7 +225,20 @@ export class AuthService extends BaseService implements IAuthService {
     if (typeof window === 'undefined') return false;
     
     const token = Cookies.get(ApiConfig.TOKEN_COOKIE);
-    return !!token;
+    if (!token) return false;
+
+    // Try to validate token
+    try {
+      // First check if it's a mock token
+      if (MockAuthService.validateToken(token)) {
+        return true;
+      }
+      
+      // Otherwise, assume it's valid if it exists (for real backend tokens)
+      return true;
+    } catch {
+      return false;
+    }
   }
 
   /**
@@ -232,5 +310,38 @@ export class AuthService extends BaseService implements IAuthService {
   static validateEmail(email: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
+  }
+
+  /**
+   * Reset password for user
+   */
+  async resetPassword(email: string): Promise<boolean> {
+    if (!AuthService.validateEmail(email)) {
+      throw new Error('Please enter a valid email address');
+    }
+
+    return this.handleRequest(async () => {
+      try {
+        const response = await this.httpClient.post<ApiResponse<{ success: boolean }>>(
+          '/auth/reset-password',
+          { email }
+        );
+
+        if (response.success && response.data) {
+          return response.data.success;
+        }
+
+        return false;
+      } catch (error: any) {
+        // Check if it's a network error (backend not available)
+        if (error.message?.includes('Network Error') || error.code === 'ERR_NETWORK' || error.code === 'ERR_CONNECTION_REFUSED') {
+          console.warn('Backend API not available, using mock reset password');
+          return await MockAuthService.resetPassword(email);
+        }
+        
+        // Re-throw other errors
+        throw error;
+      }
+    }, 'Password reset failed');
   }
 }

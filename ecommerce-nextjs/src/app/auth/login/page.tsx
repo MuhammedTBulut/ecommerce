@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
-import { ValidationHelper } from '@/lib/utils';
+import { ValidationHelper, StorageHelper } from '@/lib/utils';
 import Link from 'next/link';
 
 export default function LoginPage() {
@@ -13,6 +13,16 @@ export default function LoginPage() {
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
+
+  // Load remembered email on component mount
+  useEffect(() => {
+    const rememberedEmail = StorageHelper.getItem<string>('remembered_email');
+    if (rememberedEmail) {
+      setFormData(prev => ({ ...prev, email: rememberedEmail }));
+      setRememberMe(true);
+    }
+  }, []);
 
   // Redirect if already authenticated
   useEffect(() => {
@@ -47,6 +57,14 @@ export default function LoginPage() {
 
     try {
       setIsSubmitting(true);
+      
+      // Handle "Remember Me" functionality
+      if (rememberMe) {
+        StorageHelper.setItem('remembered_email', formData.email);
+      } else {
+        StorageHelper.removeItem('remembered_email');
+      }
+      
       await login(formData);
     } catch (error) {
       // Error is handled by the context and toast
@@ -150,6 +168,8 @@ export default function LoginPage() {
                 id="remember-me"
                 name="remember-me"
                 type="checkbox"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
                 className="h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded"
               />
               <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
@@ -158,9 +178,9 @@ export default function LoginPage() {
             </div>
 
             <div className="text-sm">
-              <a href="#" className="font-medium text-orange-600 hover:text-orange-500">
+              <Link href="/auth/forgot-password" className="font-medium text-orange-600 hover:text-orange-500">
                 Forgot your password?
-              </a>
+              </Link>
             </div>
           </div>
 
